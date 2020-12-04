@@ -21,38 +21,35 @@ for line in lines:
 valid_count = 0
 
 for it in items:
-    valid = True
-    for required_value in ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']:
-        try:
+    try:
+        for required_value in ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']:
             if not required_value in it:
                 raise LookupError()
 
-            byr_num, iyr_num, eyr_num = int(
-                it['byr']), int(it['iyr']), int(it['eyr'])
+        byr_num, iyr_num, eyr_num = int(
+            it['byr']), int(it['iyr']), int(it['eyr'])
 
-            assert(1920 <= byr_num <= 2002)
-            assert(2010 <= iyr_num <= 2020)
-            assert(2020 <= eyr_num <= 2030)
+        assert(1920 <= byr_num <= 2002)
+        assert(2010 <= iyr_num <= 2020)
+        assert(2020 <= eyr_num <= 2030)
 
-            hgt_num = int(it['hgt'][:-2])
-            if it['hgt'].endswith('cm'):
-                assert(150 <= hgt_num <= 193)
-            elif it['hgt'].endswith('in'):
-                assert(59 <= hgt_num <= 76)
-            else:
-                raise TypeError()
+        hgt_num = int(it['hgt'][:-2])
+        if it['hgt'].endswith('cm'):
+            assert(150 <= hgt_num <= 193)
+        elif it['hgt'].endswith('in'):
+            assert(59 <= hgt_num <= 76)
+        else:
+            raise TypeError()
 
-            assert(it['hcl'][0] == '#')
-            int(it['hcl'][1:], base=16)
-            assert(it['ecl'] in ['amb', 'blu', 'brn',
-                                 'gry', 'grn', 'hzl', 'oth'])
+        assert(it['hcl'][0] == '#')
+        int(it['hcl'][1:], base=16)
+        assert(it['ecl'] in ['amb', 'blu', 'brn',
+                             'gry', 'grn', 'hzl', 'oth'])
 
-            assert(len(it['pid']) == 9)
-            assert(it['pid'].isdigit())
-        except:
-            valid = False
-            break
-    if valid:
-        valid_count += 1
+        assert(len(it['pid']) == 9)
+        assert(it['pid'].isdigit())
+    except:
+        continue
+    valid_count += 1
 
 print(valid_count)
