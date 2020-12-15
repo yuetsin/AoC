@@ -21,29 +21,29 @@ bus_items = tuple(bus_dict.items())
 
 min_step = max(bus_list)
 
-min_possible = 100000000000000
 
-min_possible = (min_possible // min_step) * min_step
+min_possible = 840493039281088
 
 offset = bus_list.index(min_step)
 
 main_mod = bus_list[0]
 
-for real_i in range(min_possible, 1000000000000000, min_step):
-    i = real_i - offset
+
+for i in range(min_possible, 1000000000000000):
 
     if i % main_mod != 0:
         continue
 
-    # print('%20d' % i, end='\r')
+    input('%20d' % i)
 
     ok = True
     for bus_i, bus_v in bus_items:
         if (i + bus_i) % bus_v != 0:
+            print('%d (+ %d) mod %d is not 0...' % (i, bus_i, bus_v))
             ok = False
             break
 
     if ok:
-        print()
+        print('ok')
         print(i)
         break
